@@ -3,8 +3,7 @@ package seki.com.studydagger2
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import seki.com.studydagger2.di.ActivityModule
-import seki.com.studydagger2.di.DaggerActivityComponent
+import dagger.android.AndroidInjection
 import seki.com.studydagger2.ui.main.MainFragment
 import seki.com.studydagger2.ui.main.SimpleMainViewModel
 import javax.inject.Inject
@@ -18,11 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        DaggerActivityComponent.builder()
-            .appComponent((application as MyApp).appComponent)
-            .activityModule(ActivityModule())
-            .build()
-            .inject(this)
+        AndroidInjection.inject(this)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
