@@ -1,25 +1,28 @@
 package seki.com.studydagger2
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import seki.com.studydagger2.data.repository.Repository
-import seki.com.studydagger2.di.AppModule
-import seki.com.studydagger2.di.DaggerAppComponent
-import seki.com.studydagger2.di.qualifier.DataRepositoryQualifier
+import seki.com.studydagger2.di.ActivityModule
+import seki.com.studydagger2.di.DaggerActivityComponent
 import seki.com.studydagger2.ui.main.MainFragment
+import seki.com.studydagger2.ui.main.SimpleMainViewModel
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @field:[Inject DataRepositoryQualifier]
-    lateinit var repository: Repository
+    @Inject
+    lateinit var viewModel: SimpleMainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        (application as MyApp).appComponent.inject(this)
+        DaggerActivityComponent.builder()
+            .appComponent((application as MyApp).appComponent)
+            .activityModule(ActivityModule())
+            .build()
+            .inject(this)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -27,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     .commitNow()
         }
 
-        Toast.makeText(this, repository.getData(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, viewModel.getShowText(), Toast.LENGTH_SHORT).show()
     }
 
 }
