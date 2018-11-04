@@ -19,10 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        DaggerAppComponent.builder()
-            .appModule(AppModule("dagger is difficult!"))
-            .build()
-            .inject(this)
+        (application as MyApp).appComponent.inject(this)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
