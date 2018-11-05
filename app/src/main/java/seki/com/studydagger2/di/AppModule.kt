@@ -11,7 +11,7 @@ import seki.com.studydagger2.data.server.ServerRepository
 import seki.com.studydagger2.di.qualifier.DataRepositoryQualifier
 import seki.com.studydagger2.di.qualifier.ServerRepositoryQualifier
 
-@Module
+@Module(subcomponents = [AppSubComponent::class])
 class AppModule(val data: String) {
 
     @Provides
