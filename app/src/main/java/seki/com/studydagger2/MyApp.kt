@@ -6,8 +6,10 @@ import android.widget.Toast
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import seki.com.studydagger2.data.AppData
-import seki.com.studydagger2.di.*
+import seki.com.studydagger2.di.AppModule
+import seki.com.studydagger2.di.AppSubComponent
+import seki.com.studydagger2.di.AppSubModule
+import seki.com.studydagger2.di.DaggerAppComponent
 import javax.inject.Inject
 import javax.inject.Provider
 
