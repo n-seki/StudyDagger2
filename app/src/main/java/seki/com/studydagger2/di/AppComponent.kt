@@ -18,5 +18,7 @@ interface AppComponent {
         fun appModule(appModule: AppModule): Builder
     }
 
+    fun appSubComponent(): AppSubComponent.Builder
+
     fun inject(app: MyApp)
 }

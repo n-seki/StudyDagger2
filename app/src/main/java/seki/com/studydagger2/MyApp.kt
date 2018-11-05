@@ -7,29 +7,25 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import seki.com.studydagger2.di.AppModule
-import seki.com.studydagger2.di.AppSubComponent
 import seki.com.studydagger2.di.AppSubModule
 import seki.com.studydagger2.di.DaggerAppComponent
 import javax.inject.Inject
-import javax.inject.Provider
 
 class MyApp : Application(), HasActivityInjector {
 
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    @Inject
-    lateinit var subComponentBuilder: Provider<AppSubComponent.Builder>
-
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder()
+        val appComponent = DaggerAppComponent.builder()
             .appModule(AppModule("dagger is not easy!"))
             .build()
-            .inject(this)
 
-        val appData = subComponentBuilder.get()
+        appComponent.inject(this)
+
+        val appData = appComponent.appSubComponent()
             .module(AppSubModule())
             .build()
             .appData()
